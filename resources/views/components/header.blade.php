@@ -40,7 +40,7 @@
             </form>
 
             <div class="text-center">
-                <a href="#">Ver todos los vuelos disponibles</a>
+                <a href="{{ route('flights') }}">Ver todos los vuelos disponibles</a>
             </div>
         </div>
     </div>

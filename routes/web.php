@@ -12,4 +12,5 @@
 */
 
 Route::get('/', 'IndexController@index');
-Route::get('/flights', 'FlightController@index');
+Route::get('/flights', 'FlightController@index')->name('flights');
+Route::POST('/searchFlight', 'FlightController@searchFlight')->name('searchFlight');
