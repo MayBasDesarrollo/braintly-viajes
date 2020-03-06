@@ -64,7 +64,9 @@
     <p>No se encontraron vuelos disponibles</p>
     @endforelse
     
-    {{-- {{ $flights->links() }} --}}
+    <div class="d-flex justify-content-center align-items-end mb-3">
+        {{ $flights->links() }}
+    </div>
 
 </div>
 @endsection

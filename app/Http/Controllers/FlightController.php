@@ -27,9 +27,9 @@ class FlightController extends Controller
                             ->with('departure_airport', 'arrival_airport', 'airplane')
                             ->whereDate('departure_date', '>=' , Carbon::now()->format('Y-m-d H:i:s'))
                             ->search(request('search'))
-                            ->get(); 
+                            ->paginate(5); 
 
-        //$flights->appends(request(['search']));
+        $flights->appends(request(['search']));
         $all_flight = true;
 
         return view('flights', compact('flights', 'all_flight'));
