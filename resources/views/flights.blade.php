@@ -6,13 +6,15 @@
 
     <div class="d-flex">
         <div class="ml-auto p-2">
-            <form method="get" action="{{ url('flights') }}">
+            <form method="get" action="{{ $all_flight == true ? route('flights') : route('searchFlight')}}">
                 @csrf
                 <div class="input-group">
                     <select class="custom-select" name="search">
                         <option value="" selected disabled>Busca tu aeropuerto...</option>
                         @foreach($airports as $airport)
-                            <option value="{{ $airport->id }}">({{ $airport->iata_code }}) {{ $airport->location }} - {{ $airport->name }}</option>
+                            <option value="{{ $airport->id }}"{{ old('search') == $airport->id ? ' selected' : '' }}>
+                                ({{ $airport->iata_code }}) {{ $airport->location }} - {{ $airport->name }}
+                            </option>
                         @endforeach
                     </select>
                     <div class="input-group-append">
@@ -28,20 +30,29 @@
         <div class="row no-gutters">
             <div class="col-md-8">
                 <div class="card-body">
-                    <h2 class="card-title">{{$flight->departure_airport->location}} - {{$flight->arrival_airport->location}}</h2>
-                    <h5 class="card-title">{{$flight->departure_airport->iata_code}} - {{$flight->arrival_airport->iata_code}}</h5>
-                    <p class="card-text">Seats Available: First Class 12 / Economy Class 25</p>
+                    <h2 class="card-title">
+                        {{$flight->departure_airport->location}} - {{$flight->arrival_airport->location}}
+                    </h2>
+                    <h5 class="card-title">
+                        <p class="card-text"> 
+                            {{$flight->departure_airport->iata_code}} <small class="text-muted">({{ $flight->dated }})</small> -
+                            {{$flight->arrival_airport->iata_code}} <small class="text-muted">({{ $flight->datea }})</small>
+                        </p>
+                    </h5>
+                    <p class="card-text">
+                        Asientos Disponibles: 
+                        <small class="text-muted">Primera Clase:</small>{{$flight->seats_remain_first}} / 
+                        <small class="text-muted">Clase Economica:</small> {{$flight->seats_remain_economy}}
+                    </p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card-body">
                     <h5 class="card-title">
-                        <button type="button" class="btn btn-link">First Class</button>
-                        ${{$flight->pricef}}
+                        <p class="card-text"><small class="text-muted">Primera Clase:</small> ${{$flight->pricef}} </p>
                     </h5>
                     <h5 class="card-title">
-                        <button type="button" class="btn btn-link">Economy Class</button>
-                        ${{$flight->pricee}}
+                        <p class="card-text"><small class="text-muted">Clase Economica:</small> ${{$flight->pricee}} </p>
                     </h5>
                 </div>
             </div>
