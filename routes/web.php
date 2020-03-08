@@ -12,5 +12,11 @@
 */
 
 Route::get('/', 'IndexController@index');
+
 Route::get('/flights', 'FlightController@index')->name('flights');
 Route::get('/searchFlight', 'FlightController@searchFlight')->name('searchFlight');
+
+Route::get('reservation', 'ReservationController@index')->name('reservation.index');
+Route::get('reservation/{flight}/new', 'ReservationController@create')->name('reservation.create');
+Route::post('reservation', 'ReservationController@store');
+Route::delete('reservation/{reservation}', 'ReservationController@destroy')->name('reservation.delete');

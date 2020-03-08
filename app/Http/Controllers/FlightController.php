@@ -27,7 +27,7 @@ class FlightController extends Controller
                             ->with('departure_airport', 'arrival_airport', 'airplane')
                             ->whereDate('departure_date', '>=' , Carbon::now()->format('Y-m-d H:i:s'))
                             ->search(request('search'))
-                            ->paginate(5); 
+                            ->paginate(5);
 
         $flights->appends(request(['search']));
         $all_flight = true;
@@ -60,15 +60,15 @@ class FlightController extends Controller
                             ->where('departure_airport_id', $data['departure_airport_id'])
                             ->where('arrival_airport_id', $data['arrival_airport_id'])
                             ->search(request('search'))
-                            ->get(); 
+                            ->paginate(5);
 
-        
+        $flights->appends(request(['search']));
         $all_flight = false;
 
         return view('flights', compact('flights', 'all_flight'));
     }
 
-    function countSeatsClass($class)
+    static public function countSeatsClass($class)
     {
         return Reservation::where('class', $class)->select('flight_id',DB::raw('COUNT(1) cant'))->groupBy('flight_id');
     }

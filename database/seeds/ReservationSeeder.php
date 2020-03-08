@@ -13,5 +13,10 @@ class ReservationSeeder extends Seeder
     public function run()
     {
         factory(Reservation::class, 15)->create();
+
+        $user = factory(Reservation::class, 16)->create([
+            'flight_id' => 5,
+            'class' => 1,
+        ]);
     }
 }
