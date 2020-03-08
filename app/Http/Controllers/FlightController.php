@@ -12,6 +12,9 @@ class FlightController extends Controller
 {
     public function index(Request $request) {
 
+        // Para actualizar el status de los vuelos crearia un stored procedure, todo el desarrollo esta basado en 
+        // que la actualización del los status del vuelo ya se realizan
+
         $flights = Flight::join('airplanes', 'airplanes.id', '=', 'flights.airplane_id')
                             ->leftJoinSub($this->countSeatsClass('0'), 're', function ($join) {
                                 $join->on('flights.id', '=', 're.flight_id');
